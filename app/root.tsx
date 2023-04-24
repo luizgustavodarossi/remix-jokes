@@ -3,6 +3,8 @@ import {
   Links,
   LiveReload,
   Outlet,
+  isRouteErrorResponse,
+  useRouteError,
 } from "@remix-run/react";
 
 import globalStylesUrl from "./styles/global.css";
@@ -58,13 +60,29 @@ export default function App() {
   );
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error))
+    return (
+      <Document
+        title={`${error.status} ${error.statusText}`}
+      >
+        <div className="error-container">
+          <h1>Oops</h1>
+          <p>Status: {error.status}</p>
+          <pre>{error.data.message}</pre>
+        </div>
+      </Document>
+    );
+
+
   return (
     <Document title="Uh-oh!">
       <div className="error-container">
-        <h1>App Error</h1>
-        <pre>{error.message}</pre>
+        <h4>App Error</h4>
+        <pre>Unknown error</pre>
       </div>
     </Document>
-  );
+  )
 }
