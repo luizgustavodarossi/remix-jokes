@@ -1,7 +1,7 @@
 import type {
   ActionArgs,
   LinksFunction,
-  MetaFunction,
+  V2_MetaFunction,
 } from "@remix-run/node";
 import {
   Link,
@@ -22,11 +22,9 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesUrl },
 ];
 
-export const meta: MetaFunction = () => ({
-  description:
-    "Login to submit your own jokes to Remix Jokes!",
-  title: "Remix Jokes | Login",
-});
+export const meta: V2_MetaFunction = () => ([
+  { description: "Login to submit your own jokes to Remix Jokes!" },
+  { title: "Remix Jokes | Login" }]);
 
 function validateUsername(username: unknown) {
   if (typeof username !== "string" || username.length < 3) {
