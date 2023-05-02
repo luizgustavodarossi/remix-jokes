@@ -1,16 +1,17 @@
-import type { LinksFunction, MetaFunction, V2_MetaFunction } from "@remix-run/node";
+import type { LinksFunction, V2_MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
   Meta,
   Outlet,
+  Scripts,
   isRouteErrorResponse,
   useRouteError,
 } from "@remix-run/react";
 
-import globalStylesUrl from "./styles/global.css";
-import globalMediumStylesUrl from "./styles/global-medium.css";
 import globalLargeStylesUrl from "./styles/global-large.css";
+import globalMediumStylesUrl from "./styles/global-medium.css";
+import globalStylesUrl from "./styles/global.css";
 
 export const links: LinksFunction = () => {
   return [
@@ -62,6 +63,7 @@ function Document({
       </head>
       <body>
         {children}
+        <Scripts />
         <LiveReload />
       </body>
     </html>
@@ -78,6 +80,7 @@ export default function App() {
 
 export function ErrorBoundary() {
   const error = useRouteError();
+  console.error(error);
 
   if (isRouteErrorResponse(error))
     return (

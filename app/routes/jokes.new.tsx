@@ -1,6 +1,5 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { Link, isRouteErrorResponse, useActionData, useRouteError } from "@remix-run/react";
 
 import { db } from "~/utils/db.server";
@@ -112,7 +111,7 @@ export default function NewJokeRoute() {
                   ? "content-error"
                   : undefined
               }
-              style={{ resize: "vertical"}}
+              style={{ resize: "vertical" }}
               rows={6}
             />
           </label>
@@ -146,6 +145,7 @@ export default function NewJokeRoute() {
 
 export function ErrorBoundary() {
   const error = useRouteError();
+  console.error(error);
 
   if (isRouteErrorResponse(error)) {
     if (error.status === 401)

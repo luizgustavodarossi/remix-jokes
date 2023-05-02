@@ -1,6 +1,5 @@
 import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { Link, isRouteErrorResponse, useLoaderData, useParams, useRouteError } from "@remix-run/react";
 import { db } from "~/utils/db.server";
 import { requireUserId } from "~/utils/session.server";
@@ -94,8 +93,8 @@ export default function JokeRoute() {
 
 export function ErrorBoundary() {
   const { jokeId } = useParams();
-
   const error = useRouteError();
+  console.error(error);
 
   if (isRouteErrorResponse(error)) {
     switch (error.status) {
